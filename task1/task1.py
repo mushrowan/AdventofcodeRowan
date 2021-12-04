@@ -7,7 +7,7 @@
 # try-finally blocks:
 
 #opens file, gets split data, converts every item to integer, closes the data
-with open('task1input.txt') as task1input:
+with open('task1/task1input.txt') as task1input:
     read_data = task1input.read()
     split_data = read_data.splitlines()
 
