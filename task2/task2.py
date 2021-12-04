@@ -1,7 +1,7 @@
 with open('task2/task2input.txt') as taskinput:
-    taskinputread = taskinput.read()
-    listedinput = taskinputread.splitlines()
-    setinput = [item.split(' ') for item in listedinput]
+    # taskinputread = taskinput.read()
+    # listedinput = taskinputread.splitlines()
+    setinput = [item.split(' ') for item in taskinput.readlines()]
     #convert the second item to an integer
     setinput = [[item[0], int(item[1])] for item in setinput]
 print(setinput)
@@ -40,9 +40,9 @@ print('(Part1) The horizontal position is ' + str(task1result[0]))
 print('(Part1) The depth position is ' + str(task1result[1]))
 print('(Part1) The product of the horizontal position and the depth position is ' + str(task1result[2]))
 
-print('(Part1) The horizontal position is ' + str(task2result[0]))
-print('(Part1) The depth position is ' + str(task2result[1]))
-print('(Part1) The product of the horizontal position and the depth position is ' + str(task2result[2]))
+print('(Part2) The horizontal position is ' + str(task2result[0]))
+print('(Part2) The depth position is ' + str(task2result[1]))
+print('(Part2) The product of the horizontal position and the depth position is ' + str(task2result[2]))
 
 
 
