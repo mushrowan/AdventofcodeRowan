@@ -15,69 +15,90 @@ with open('task4/task4input.txt') as task4input:
     print(bingofeed)
     # lines = [[int(subline) for subline in (line.split())] for line in task4input.getline(0).split(',')]
 
-"""format:
-[
-    []
-]
 
 
-"""
+# print(input)
+# def formatinputcards(inputcards, cardheight):
+#     print("""STARTINGHEREJEREWREW
+#     STARTING HERE""")
+#     outputlines = []
+#     for numberline in inputcards:
+#         if numberline != '':
+#             outputlines.append(numberline)
+#     #format the output lines: replace double spaces with single spaces, removes any lines which have a space as their prefix, so that the split doesn't include them at the beginning of lines.
+#     outputlines = [numberline.replace('  ', ' ').removeprefix(' ') for numberline in outputlines]
+#     #splits by space and replaces every string element with an integer.
+#     outputlines = [[int(number) for number in numberline.split(' ')] for numberline in outputlines]
 
-print(input)
-def formatinputcards(inputcards, cardheight):
-    print("""STARTINGHEREJEREWREW
-    STARTING HERE""")
-    outputlines = []
-    for numberline in inputcards:
-        if numberline != '':
-            outputlines.append(numberline)
+print("""STARTINGHEREJEREWREW
+STARTING HERE""")
+outputlines = []
+for numberline in input:
+    if numberline != '':
+        outputlines.append(numberline)
     #format the output lines: replace double spaces with single spaces, removes any lines which have a space as their prefix, so that the split doesn't include them at the beginning of lines.
-    outputlines = [numberline.replace('  ', ' ').removeprefix(' ') for numberline in outputlines]
+outputlines = [numberline.replace('  ', ' ').removeprefix(' ') for numberline in outputlines]
     #splits by space and replaces every string element with an integer.
-    outputlines = [[int(number) for number in numberline.split(' ')] for numberline in outputlines]
-    #take x number of lines, put them into a list of lists in the overall list, repeat until exhausted all
-    #While there is something in output lines:
-    print(outputlines)
-    realoutput = []
-    for index in range(len(outputlines)):
-        card = []
-        for iteration in range(cardheight):
-            if outputlines != []:
-                card.append(outputlines.pop(0))
-        if card != []:
-            realoutput.append(card)
-    realoutput = [[[[bingonumber, False] for bingonumber in  bingoitem] for bingoitem in cardset] for cardset in realoutput]
-
-    #structure: 
-    #[[[[individual number, boolean] * 5 = bingo line] * 5 = bingo card] * n number of bingo cards]
+outputlines = [[int(number) for number in numberline.split(' ')] for numberline in outputlines]
+print(outputlines)
 
 
-    return(realoutput)
-def bingoround(cardlist, inputfeed):
-    cardlistvariable = cardlist
-    inputfeedvariable = inputfeed
-    bingoroundnumber = inputfeedvariable.pop(0)
-    
-    print(bingoroundnumber)
-    for card in cardlistvariable:
-        for bingoline in card:
-            for bingopair in bingoline:
-                checknumber = bingopair[0]
-                print(bingopair[0])
-                print(checknumber)
-                if checknumber == bingoroundnumber:
-                    print('yes')
-                    bingopair[1] = True
-                    print(bingopair)
-                print(bingopair)
-    return cardlistvariable
-bingoinputlistfinalized = formatinputcards(input,5) 
-print(formatinputcards(input, 5))
-print(bingoround(bingoinputlistfinalized, bingofeed))
-# testthingy = [54, True]
-# # if testthingy[0] == 54:
-# #     testthingy[1] = False
-# # print(testthingy)
+def getblock(allbingocards):
+    bingoblock = []
+    #Append the first 5 (length of lines) horizontal lines to the current bingo block to be tested. remove them from the overall list of all cards. 
+    for number in range(5):
+        bingoblock.append(allbingocards.pop(0))
+    #Generate another set of lists with the vertical lines.
+    columnset = []
+    for index in range(len(bingoblock)):
+        indexcolumn = []
+        for item in bingoblock:
+            indexcolumn.append(item[index])
+        print(indexcolumn)
+        columnset.append(indexcolumn)
+    #append the horizontal and vertical lists together.
+    for subitem in columnset:
+        bingoblock.append(subitem)
+    return(bingoblock)
+
+
+testblock = getblock(outputlines)
+
+# convert all values to our system for checking.
+testblock = [[[subitem, False] for subitem in line] for line in testblock]
+
+
+print(testblock)
+
+#This checks if any numbers in a line match a bingo input. If it does, it changes the value [1] of the number to True. It can work for multiple numbers.
+
+def checknumber(inputset, inputnumber):
+    for subitem in inputset:
+        if subitem[0] == inputnumber:
+            subitem[1] = True
+            print('match!')
+    return(inputset)
+
+# This checks to see if every [1] value in a line is true. if it is, it returns the list of numbers. if it doesn't, it returns false.
+def checktrue(inputset):
+    possiblewin = []
+    for subitem in inputset:
+        if subitem[1] == True:
+            possiblewin.append(subitem[0])
+            continue
+        else:
+            print('No match for this line.')
+            possiblewin = False
+            break
+    return(possiblewin)    
+
+#given a set of set of sets, apply checknumber and then apply checktrue.
+def lowscorefinder(inputset, candidatenumberlist):
+    for bingoline in inputset:
+        print(bingoline)
+
+print(lowscorefinder(testblock, bingofeed))
+
 
 
 
