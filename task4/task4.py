@@ -7,138 +7,34 @@
 # testint = int("34 ") <---- this works! so whitespaces are automatically not considered
 # print(testint)
 # FIND THE FIRST INSTANCE OF A NEW LINE, 
-with open('task4/task4input.txt') as task4input:
-    input = task4input.read().splitlines()
-    bingofeed = input.pop(0)
-    bingofeed = bingofeed.split(',')
-    bingofeed = [int(item) for item in bingofeed]
-
-    print(bingofeed)
-bingofeedcomplete = bingofeed
-    # lines = [[int(subline) for subline in (line.split())] for line in task4input.getline(0).split(',')]
-
+# with open('task4/task4toyinput.txt') as task4input:
+#     input = task4input.read().splitlines()
+#     bingofeed = input.pop(0)
+#     bingofeed = bingofeed.split(',')
+#     bingofeed = [int(item) for item in bingofeed]
+#     lines = [[int(subline) for subline in (line.split())] for line in task4input.getline(0).split(',')]
+#     print(bingofeed)
+feed = [7,58,52,49,72,33,55,73,27,69,88,80,9,7,59,98,63,42,84,37,87,28,97,66,79,77,61,48,83,5,94,26,70,12,51,82,99,45,22,64,10,78,13,18,15,39,8,30,68,65,40,21,6,86,90,29,60,4,38,3,43,93,44,50,41,96,20,62,19,91,23,36,47,92,76,31,67,11,0,56,95,85,35,16,2,14,75,53,1,57,81,46,71,54,24,74,89,32,25,34]
 
 
-# print(input)
-# def formatinputcards(inputcards, cardheight):
-#     print("""STARTINGHEREJEREWREW
-#     STARTING HERE""")
-#     outputlines = []
-#     for numberline in inputcards:
-#         if numberline != '':
-#             outputlines.append(numberline)
-#     #format the output lines: replace double spaces with single spaces, removes any lines which have a space as their prefix, so that the split doesn't include them at the beginning of lines.
-#     outputlines = [numberline.replace('  ', ' ').removeprefix(' ') for numberline in outputlines]
-#     #splits by space and replaces every string element with an integer.
-#     outputlines = [[int(number) for number in numberline.split(' ')] for numberline in outputlines]
-
-print("""STARTINGHEREJEREWREW
-STARTING HERE""")
-outputlines = []
-for numberline in input:
-    if numberline != '':
-        outputlines.append(numberline)
-    #format the output lines: replace double spaces with single spaces, removes any lines which have a space as their prefix, so that the split doesn't include them at the beginning of lines.
-outputlines = [numberline.replace('  ', ' ').removeprefix(' ') for numberline in outputlines]
-    #splits by space and replaces every string element with an integer.
-outputlines = [[int(number) for number in numberline.split(' ')] for numberline in outputlines]
+# proposed list properties:
+# [
+# [[1, False], [2, False]]
+# [[1, False], [3, False]]
+# ]
+# Check if: 
+#   1. all items[1] in sublist are true
+#   2. all sublist[n index][1] are true
+#   
+#   
 
 
-def getblock(allbingocards):
-    bingoblock = []
-    #Append the first 5 (length of lines) horizontal lines to the current bingo block to be tested. remove them from the overall list of all cards. 
-    for number in range(5):
-        bingoblock.append(allbingocards.pop(0))
-    #Generate another set of lists with the vertical lines.
-    columnset = []
-    for index in range(len(bingoblock)):
-        indexcolumn = []
-        for item in bingoblock:
-            indexcolumn.append(item[index])
-        columnset.append(indexcolumn)
-    #append the horizontal and vertical lists together.
-    for subitem in columnset:
-        bingoblock.append(subitem)
-    return(bingoblock)
-
-print(outputlines)
-print("chopping output lines now.")
-# testblock = getblock(outputlines)
-print(outputlines)
-
-# convert all values to our system for checking.
-# testblock = [[[subitem, False] for subitem in line] for line in testblock]
-
-truecountreal = 101 # the maximum possible count is 100 so we'll do this as a workaround lol
-winninglistreal = 0
-# print(testblock)
-
-#This checks if any numbers in a line match a bingo input. If it does, it changes the value [1] of the number to True. It can work for multiple numbers. THIS CHANGES THE INPUT LIST.
-
-def checknumber(inputset, inputnumber):
-    for subitem in inputset:
-        if subitem[0] == inputnumber:
-            subitem[1] = True
-            print(str(inputnumber) + " is a match!")
-    return(inputset)
-
-
-# This checks to see if every [1] value in a line is true. if it is, it returns the list of numbers. if it doesn't, it returns false.
-def checktrue(inputset):
-    possiblewin = []
-    for subitem in inputset:
-        if subitem[1] == True:
-            possiblewin.append(subitem[0])
-            continue
-        else:
-            print('No match for this line.')
-            possiblewin = False
-            break
-    return(possiblewin)
-
-def checkwin(inputset):
-    count = 0
-    for item in inputset:
-        if item[1] == True:
-            count += 1
-            if count == len(inputset):
-                return (True)
-        else:
-            return False
-
-# sample input list
-samplelist = [[97, False], [84, False], [42, False], [77, False], [73, False]]
-#find how long it takes for a specific line to win
-def checklist(inputset, inputfeed):
-    count = 0
-    winninglist = []
-    for item in range(len(inputfeed)):
-
-        inputfeedpop = inputfeed 
-        singleinputnumber = inputfeedpop[item]
-        print(singleinputnumber)
-        inputset = checknumber(inputset, singleinputnumber)
-        count += 1
-        winninglist = checktrue(inputset)
-        if checkwin(inputset) == True:
-            break
-    return(inputset, count,)
-
-print(checklist(samplelist,bingofeed))
-
-while outputlines != []:
-    testblock =  getblock(outputlines)
-    testblock = [[[subitem, False] for subitem in line] for line in testblock]
-    for sublist in testblock:
-        bingofeed = bingofeedcomplete
-        print(bingofeed)
-        testedlist = checklist(sublist,bingofeed)
-        if testedlist[1] < truecountreal:
-            winninglistreal = testedlist[0]
-            truecountreal = testedlist[1]
-            winningblock = testblock
-# print("the winning list is " + str(winninglistreal) + "and the count is " + str(truecountreal))
-print("the winning block is " + (str(winningblock)))
-
-
+with open('task4/task4toyinput.txt') as taskinput:
+    allblocks = taskinput.read().splitlines()
+    
+    allblocks.remove('')
+    allblocks = [item.removeprefix(' ') for item in allblocks]
+    allblocks = [[[int(number), False] for number in (item.split())] for item in allblocks]
+    #create an item which contains the first 5 elements of allblocks.
+    allblocks = 
 
