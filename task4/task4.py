@@ -11,6 +11,7 @@ with open('task4/task4input.txt') as task4input:
     input = task4input.read().splitlines()
     bingofeed = input.pop(0)
     bingofeed = bingofeed.split(',')
+    bingofeed = [int(item) for item in bingofeed]
 
     print(bingofeed)
     # lines = [[int(subline) for subline in (line.split())] for line in task4input.getline(0).split(',')]
@@ -70,13 +71,12 @@ testblock = [[[subitem, False] for subitem in line] for line in testblock]
 
 print(testblock)
 
-#This checks if any numbers in a line match a bingo input. If it does, it changes the value [1] of the number to True. It can work for multiple numbers.
+#This checks if any numbers in a line match a bingo input. If it does, it changes the value [1] of the number to True. It can work for multiple numbers. THIS CHANGES THE INPUT LIST.
 
 def checknumber(inputset, inputnumber):
     for subitem in inputset:
         if subitem[0] == inputnumber:
             subitem[1] = True
-            print('match!')
     return(inputset)
 
 # This checks to see if every [1] value in a line is true. if it is, it returns the list of numbers. if it doesn't, it returns false.
@@ -90,17 +90,42 @@ def checktrue(inputset):
             print('No match for this line.')
             possiblewin = False
             break
-    return(possiblewin)    
+    return(possiblewin)
 
-#given a set of set of sets, apply checknumber and then apply checktrue.
-def lowscorefinder(inputset, candidatenumberlist):
-    for bingoline in inputset:
-        print(bingoline)
+def checkwin(inputset):
+    count = 0
+    for item in inputset:
+        if item[1] == True:
+            count += 1
+            if count == len(inputset):
+                return (True)
+        else:
+            return False
 
-print(lowscorefinder(testblock, bingofeed))
+# sample input list
+samplelist = [[33, False], [49, False], [72, False], [55, False], [73, False]]
+#find how long it takes for a specific line to win
+def checklist(inputset, inputfeed):
+    count = 0
+    winninglist = []
+    for item in range(len(inputfeed)):
 
+        inputfeedpop = inputfeed 
+        singleinputnumber = inputfeedpop.pop(0)
+        print(singleinputnumber)
+        inputset = checknumber(inputset, singleinputnumber)
+        count += 1
+        winninglist = checktrue(inputset)
+        if checkwin(inputset) == True:
+            break
+    return(inputset, count)
 
+topcount = 0
+toplist = []
+for list in testblock:
+    if checklist(list,bingofeed)[1] > topcount:
+        topcount == checklist(samplelist,bingofeed)[1]
+        toplist == checklist(samplelist,bingofeed)[1]
+    
 
-
-#NEW IDEA:
-#SEE HOW MANY TURNS IT TAKES FOR A CARD TO WIN - GENERATE 10 LISTS FOR EACH CARD, FOR BOTH RANKS AND COLUMNS
+print(checklist(samplelist,bingofeed))
