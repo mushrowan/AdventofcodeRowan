@@ -14,6 +14,7 @@ with open('task4/task4input.txt') as task4input:
     bingofeed = [int(item) for item in bingofeed]
 
     print(bingofeed)
+bingofeedcomplete = bingofeed
     # lines = [[int(subline) for subline in (line.split())] for line in task4input.getline(0).split(',')]
 
 
@@ -41,7 +42,6 @@ for numberline in input:
 outputlines = [numberline.replace('  ', ' ').removeprefix(' ') for numberline in outputlines]
     #splits by space and replaces every string element with an integer.
 outputlines = [[int(number) for number in numberline.split(' ')] for numberline in outputlines]
-print(outputlines)
 
 
 def getblock(allbingocards):
@@ -55,21 +55,23 @@ def getblock(allbingocards):
         indexcolumn = []
         for item in bingoblock:
             indexcolumn.append(item[index])
-        print(indexcolumn)
         columnset.append(indexcolumn)
     #append the horizontal and vertical lists together.
     for subitem in columnset:
         bingoblock.append(subitem)
     return(bingoblock)
 
-
-testblock = getblock(outputlines)
+print(outputlines)
+print("chopping output lines now.")
+# testblock = getblock(outputlines)
+print(outputlines)
 
 # convert all values to our system for checking.
-testblock = [[[subitem, False] for subitem in line] for line in testblock]
+# testblock = [[[subitem, False] for subitem in line] for line in testblock]
 
-
-print(testblock)
+truecountreal = 101 # the maximum possible count is 100 so we'll do this as a workaround lol
+winninglistreal = 0
+# print(testblock)
 
 #This checks if any numbers in a line match a bingo input. If it does, it changes the value [1] of the number to True. It can work for multiple numbers. THIS CHANGES THE INPUT LIST.
 
@@ -77,7 +79,9 @@ def checknumber(inputset, inputnumber):
     for subitem in inputset:
         if subitem[0] == inputnumber:
             subitem[1] = True
+            print(str(inputnumber) + " is a match!")
     return(inputset)
+
 
 # This checks to see if every [1] value in a line is true. if it is, it returns the list of numbers. if it doesn't, it returns false.
 def checktrue(inputset):
@@ -103,7 +107,7 @@ def checkwin(inputset):
             return False
 
 # sample input list
-samplelist = [[33, False], [49, False], [72, False], [55, False], [73, False]]
+samplelist = [[97, False], [84, False], [42, False], [77, False], [73, False]]
 #find how long it takes for a specific line to win
 def checklist(inputset, inputfeed):
     count = 0
@@ -111,21 +115,30 @@ def checklist(inputset, inputfeed):
     for item in range(len(inputfeed)):
 
         inputfeedpop = inputfeed 
-        singleinputnumber = inputfeedpop.pop(0)
+        singleinputnumber = inputfeedpop[item]
         print(singleinputnumber)
         inputset = checknumber(inputset, singleinputnumber)
         count += 1
         winninglist = checktrue(inputset)
         if checkwin(inputset) == True:
             break
-    return(inputset, count)
-
-topcount = 0
-toplist = []
-for list in testblock:
-    if checklist(list,bingofeed)[1] > topcount:
-        topcount == checklist(samplelist,bingofeed)[1]
-        toplist == checklist(samplelist,bingofeed)[1]
-    
+    return(inputset, count,)
 
 print(checklist(samplelist,bingofeed))
+
+while outputlines != []:
+    testblock =  getblock(outputlines)
+    testblock = [[[subitem, False] for subitem in line] for line in testblock]
+    for sublist in testblock:
+        bingofeed = bingofeedcomplete
+        print(bingofeed)
+        testedlist = checklist(sublist,bingofeed)
+        if testedlist[1] < truecountreal:
+            winninglistreal = testedlist[0]
+            truecountreal = testedlist[1]
+            winningblock = testblock
+# print("the winning list is " + str(winninglistreal) + "and the count is " + str(truecountreal))
+print("the winning block is " + (str(winningblock)))
+
+
+
