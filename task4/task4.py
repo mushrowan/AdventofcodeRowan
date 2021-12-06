@@ -35,6 +35,35 @@ with open('task4/task4toyinput.txt') as taskinput:
     allblocks.remove('')
     allblocks = [item.removeprefix(' ') for item in allblocks]
     allblocks = [[[int(number), False] for number in (item.split())] for item in allblocks]
+    print(allblocks)
     #create an item which contains the first 5 elements of allblocks.
-    allblocks = 
+card = []
+
+def checktrue(inputlistlist):
+    truecount = 0
+    for sublist in inputlistlist:
+        for number in sublist:
+            if number[1] == True:
+                truecount +=1
+            else:
+                truecount = 0
+            if truecount == 5:
+                return(inputlistlist, True)
+            
+            
+    for number in range(5):
+        for sublist in inputlistlist:
+            if sublist[number][1] == True:
+                truecount +=1
+            else:
+                truecount = 0
+            if truecount == 5:
+                return(inputlistlist, True)
+
+# Test list: the second ([1]) index of every sublist is true, so this should feedback with true.
+# samplelist = [[[59, False], [98, True], [84, False], [27, False], [56, False]], [[17, False], [35, True], [18, False], [64, False], [34, False]], [[62, False], [16, True], [74, False], [26, False], [55, False]], [[21, False], [99, True], [1, False], [19, False], [93, False]], [[65, False], [68, True], [53, False], [24, False], [73, False]]]
+#Test list: the second list has every item as True, so this should beedbacck with true.
+samplelist = [[[59, False], [98, False], [84, False], [27, False], [56, False]], [[17, True], [35, True], [18, True], [64, True], [34, True]], [[62, False], [16, False], [74, False], [26, False], [55, False]], [[21, False], [99, False], [1, False], [19, False], [93, False]], [[65, False], [68, False], [53, False], [24, False], [73, False]]]
+
+print(checktrue(samplelist))
 
