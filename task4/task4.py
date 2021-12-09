@@ -27,39 +27,39 @@ feed = [7,58,52,49,72,33,55,73,27,69,88,80,9,7,59,98,63,42,84,37,87,28,97,66,79,
 #   2. all sublist[n index][1] are true
 #   
 #   
-
-
 with open('task4/task4toyinput.txt') as taskinput:
-    allblocks = taskinput.read().splitlines()
-    
-    allblocks.remove('')
+    allblocksunformatted = taskinput.read().splitlines()
+    allblockscount = 0
+    allblocks = []
+    for item in allblocksunformatted: 
+        allblockscount += 1
+        if allblockscount % 6 != 0:
+            allblocks.append(item)
     allblocks = [item.removeprefix(' ') for item in allblocks]
     allblocks = [[[int(number), False] for number in (item.split())] for item in allblocks]
-
-# Checks both horizontal and vertical for 5 in a row - range(5) can be changed to whatever list height - the first part won't need changing though.
-def checktrue(inputlistlist):
+    print("unsegregated rows: " + str(allblocks))
+# Checks both horizontal and vertical for 5 in a row - range(5) can be changed to whatever list height - the first part won't need changing though. Takes card as an input.
+def checktrue(inputCard):
     truecount = 0
-    for sublist in inputlistlist:
-        if sublist[1] == True:
-            truecount +=1
-        else:
-            truecount = 0
-        if truecount == 5:
-            return(inputlistlist, True)
-            break
-            
-            
-    for number in range(5):
-        print
-        if inputlistlist[number][1] == True:
-            if inputlistlist[number][1] == True:
+    for cardHorizontaline in inputCard: 
+        for numberpair in cardHorizontaline: # Numberpair should take the format [number, bool]
+            if numberpair[1] == True:
                 truecount +=1
             else:
                 truecount = 0
-                return(inputlistlist, False)
+        if truecount == 5:
+            return(True)
+    
+    truecount = 0        
+            
+    for number in range(5):
+        for cardHorizontaline in inputCard:
+            if cardHorizontaline[number][1] == True:
+                truecount +=1
             if truecount == 5:
-                return(inputlistlist, True)
-                break
+                return(True)
+            else:
+                return(False)
 
 #marks a card against a single number, changes all corresponding numbers to True. This changes the input, and does not return anything.
 def markcard(inputcard, inputnumber):
@@ -73,9 +73,8 @@ def countcard(inputcard, inputfeed):
     for inputnumber in inputfeed:
         markcard(inputcard, inputnumber)
         count += 1
-        if checktrue(inputcard[1]) == True:
-            return(checktrue(inputcard), count)
-            break
+        if checktrue(inputcard) == True:
+            return(inputcard, count)
 
 
 # Test list: the second ([1]) index of every sublist is true, so this should feedback with true.
@@ -87,28 +86,31 @@ samplelist = [[[59, False], [98, False], [84, False], [27, False], [56, False]],
 
 
 
-# def countlist(inputcards, inputfeed):
-#     lowestcount = 101
-#     while inputcards != []:
-#         allblocksslice = []
-#         for number in range(5):
-#             if allblocksslice != []:
-#                 allblocksslice.append(inputcards.pop(0))
-#         currentcardcount = countcard(allblocksslice, inputfeed)
-#         print('test' + str(currentcardcount))
-#         if currentcardcount[1] < lowestcount:
-#             lowestcount = currentcardcount[1]
-#             currentwinner = currentcardcount
-#     return currentwinner
+def countlist(inputcards, inputfeed):
+    lowestcount = 101
+    while inputcards != []:
+        allblocksslice = []
+        for number in range(5):
+            if inputcards != []:
+                allblocksslice.append(inputcards.pop(0))
+        currentcardcount = countcard(allblocksslice, inputfeed)
+        if currentcardcount[1] < lowestcount:
+            lowestcount = currentcardcount[1]
+            currentwinner = currentcardcount[0]
+    return currentwinner, lowestcount
 
-
-# print(countcard(samplelist, feed))
-card = []
-while allblocks:
-    for number in range(5):
-        card.append(allblocks.pop(0))
-    print(countcard(card,feed))
-    card.clear()
+print(samplelist)
+print(samplelist[0:5])
+print(countlist(allblocks, feed))
+# card = []
+# for item in allblocks:
+#     card.append(item)
+#     if len(card) == 5:
+#         print(card)
+#         card.clear()
+#         print("cleared card" + str(card))
+#     # print(countcard(card,feed))
 
     
-print(card)
+# print(card)
+# print(len(samplelist))
