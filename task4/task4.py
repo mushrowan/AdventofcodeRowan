@@ -40,26 +40,27 @@ with open('task4/task4input.txt') as taskinput:
     print("unsegregated rows: " + str(allblocks))
 # Checks both horizontal and vertical for 5 in a row - range(5) can be changed to whatever list height - the first part won't need changing though. Takes card as an input.
 def checktrue(inputCard):
-    truecount = 0
     for cardHorizontaline in inputCard: 
+        truecount = 0
         for numberpair in cardHorizontaline: # Numberpair should take the format [number, bool]
             if numberpair[1] == True:
                 truecount +=1
             else:
                 truecount = 0
-        if truecount == 5:
+        if truecount >= 5:
             return(True)
-    
-    truecount = 0        
+      
             
-    for number in range(5):
+    for checktrueindex in range(5):
+        truecount = 0
         for cardHorizontaline in inputCard:
-            if cardHorizontaline[number][1] == True:
-                truecount +=1
-            if truecount == 5:
+
+            if cardHorizontaline[checktrueindex][1] == True:
+                truecount += 1
+                
+            if truecount >= 5:
                 return(True)
-            else:
-                return(False)
+
 
 #marks a card against a single number, changes all corresponding numbers to True. This changes the input, and does not return anything.
 def markcard(inputcard, inputnumber):
@@ -71,10 +72,11 @@ def markcard(inputcard, inputnumber):
 def countcard(inputcard, inputfeed):
     count = 0
     for inputnumber in inputfeed:
-        markcard(inputcard, inputnumber)
-        count += 1
         if checktrue(inputcard) == True:
             return(inputcard, count)
+        markcard(inputcard, inputnumber)
+        count += 1
+
     count = 0
     return(inputcard, count)
 
@@ -87,23 +89,40 @@ def countcard(inputcard, inputfeed):
 samplelist = [[[59, False], [98, False], [84, False], [27, False], [56, False]], [[17, False], [35, False], [18, False], [64, False], [34, False]], [[62, False], [16, False], [74, False], [26, False], [55, False]], [[21, False], [99, False], [1, False], [19, False], [93, False]], [[65, False], [68, False], [53, False], [24, False], [73, False]]]
 
 
+#finds the lowest count list
+# def countlist(inputcards, inputfeed):
+#     lowestcount = 101
+#     while inputcards != []:
+#         allblocksslice = []
+#         for number in range(5):
+#             if inputcards != []:
+#                 allblocksslice.append(inputcards.pop(0))
+#         currentcardcount = countcard(allblocksslice, inputfeed)
+#         if currentcardcount[1] < lowestcount:
+#             lowestcount = currentcardcount[1]
+#             currentwinner = currentcardcount[0]
+#             print ("new lowest count is " + str(lowestcount))
+#     return currentwinner, lowestcount
 
+#finds the highest count list
 def countlist(inputcards, inputfeed):
     lowestcount = 0
     while inputcards != []:
         allblocksslice = []
         for number in range(5):
-            if inputcards != []:
+            if inputcards[0] != []:
                 allblocksslice.append(inputcards.pop(0))
         currentcardcount = countcard(allblocksslice, inputfeed)
+        print(currentcardcount[1])
         if currentcardcount[1] > lowestcount:
             lowestcount = currentcardcount[1]
             currentwinner = currentcardcount[0]
             print ("new highest count is " + str(lowestcount))
     return currentwinner, lowestcount
 
+
 print(countlist(allblocks, feed))
-print(feed[97])
+print(feed[85])
 print(len(feed))
 # ([[[6, False], [26, False], [69, True], [27, True], [75, False]], [[61, False], [33, True], [88, True], [38, False], [20, False]], [[9, True], [56, False], [70, False], [98, True], [82, False]], [[80, True], [76, False], [55, True], [66, True], [29, False]], [[97, True], [84, True], [42, True], [77, True], [73, True]]], 26)
 #61
