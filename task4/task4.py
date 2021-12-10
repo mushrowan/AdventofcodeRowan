@@ -27,7 +27,7 @@ feed = [7,58,52,49,72,33,55,73,27,69,88,80,9,7,59,98,63,42,84,37,87,28,97,66,79,
 #   2. all sublist[n index][1] are true
 #   
 #   
-with open('task4/task4toyinput.txt') as taskinput:
+with open('task4/task4input.txt') as taskinput:
     allblocksunformatted = taskinput.read().splitlines()
     allblockscount = 0
     allblocks = []
@@ -75,6 +75,8 @@ def countcard(inputcard, inputfeed):
         count += 1
         if checktrue(inputcard) == True:
             return(inputcard, count)
+    count = 0
+    return(inputcard, count)
 
 
 # Test list: the second ([1]) index of every sublist is true, so this should feedback with true.
@@ -87,21 +89,24 @@ samplelist = [[[59, False], [98, False], [84, False], [27, False], [56, False]],
 
 
 def countlist(inputcards, inputfeed):
-    lowestcount = 101
+    lowestcount = 0
     while inputcards != []:
         allblocksslice = []
         for number in range(5):
             if inputcards != []:
                 allblocksslice.append(inputcards.pop(0))
         currentcardcount = countcard(allblocksslice, inputfeed)
-        if currentcardcount[1] < lowestcount:
+        if currentcardcount[1] > lowestcount:
             lowestcount = currentcardcount[1]
             currentwinner = currentcardcount[0]
+            print ("new highest count is " + str(lowestcount))
     return currentwinner, lowestcount
 
-print(samplelist)
-print(samplelist[0:5])
 print(countlist(allblocks, feed))
+print(feed[97])
+print(len(feed))
+# ([[[6, False], [26, False], [69, True], [27, True], [75, False]], [[61, False], [33, True], [88, True], [38, False], [20, False]], [[9, True], [56, False], [70, False], [98, True], [82, False]], [[80, True], [76, False], [55, True], [66, True], [29, False]], [[97, True], [84, True], [42, True], [77, True], [73, True]]], 26)
+#61
 # card = []
 # for item in allblocks:
 #     card.append(item)
@@ -114,3 +119,6 @@ print(countlist(allblocks, feed))
     
 # print(card)
 # print(len(samplelist))
+
+
+# ([[[63, True], [2, True], [32, True], [56, True], [52, True]], [[30, True], [11, True], [33, True], [10, True], [70, True]], [[36, True], [34, False], [88, True], [82, True], [37, True]], [[62, True], [57, True], [40, True], [28, True], [96, True]], [[58, True], [73, True], [41, True], [69, True], [85, True]]], 98)
