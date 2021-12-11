@@ -6,3 +6,12 @@
 
 
 """
+# Second line should intersect with third
+# Open file
+with open("task5/task5toyinput.txt") as file:
+    taskinput = file.read().splitlines()
+    taskinput = [item.split(" -> ") for item in taskinput]
+    taskinput = [[[int(coords) for coords in coords.split(",")] for coords in item] for item in taskinput]
+
+print(taskinput)
+# Open toy file
