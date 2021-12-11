@@ -13,5 +13,11 @@ with open("task5/task5toyinput.txt") as file:
     taskinput = [item.split(" -> ") for item in taskinput]
     taskinput = [[[int(coords) for coords in coords.split(",")] for coords in item] for item in taskinput]
 
-print(taskinput)
-# Open toy file
+#convert a pair of coords [[x1,y1][x2,y2]] into a list of points covered
+def generateLine(coords_pair):
+    # For possible use on diagonal lines (I assume part 2 of the task will require us to account for this)
+    # if coords_pair[0][0] != coords_pair[1][0] & coords_pair[0][1] != coords_pair[1][1]:
+    #     print("hello")
+    #Generates horizontal line points
+    if coords_pair[0][0] != coords_pair[1][0]:
+        for point in range(coords_pair[0][0], coords_pair[1][0])
