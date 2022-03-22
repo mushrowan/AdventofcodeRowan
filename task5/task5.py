@@ -6,9 +6,30 @@
 
 
 """
+
+with open('task5/task5toyinput.txt') as file:
+    taskinput = file.read()
+taskinput = taskinput.splitlines()
+testcoords = [[2,5],[100,5]]
+]
+
+
+""" print(taskinput)
+for line in taskinput: # Take the whole file as input.
+    line = line.split(' -> ')
+    print(line)
+    for coordinate in line:
+        coordinate = coordinate.split(',')
+    list_of_points = []
+    if line[0][0] is not line[1][0]: # If the x coordinates differ, create a list of points.
+        for point in range(line[0][1])
+ """
+
+
+
 # Second line should intersect with third
 # Open file
-with open("task5/task5toyinput.txt") as file:
+""" with open("task5/task5toyinput.txt") as file:
     taskinput = file.read().splitlines()
     taskinput = [item.split(" -> ") for item in taskinput]
     taskinput = [[[int(coords) for coords in coords.split(",")] for coords in item] for item in taskinput]
@@ -21,3 +42,4 @@ def generateLine(coords_pair):
     #Generates horizontal line points
     if coords_pair[0][0] != coords_pair[1][0]:
         for point in range(coords_pair[0][0], coords_pair[1][0])
+ """
